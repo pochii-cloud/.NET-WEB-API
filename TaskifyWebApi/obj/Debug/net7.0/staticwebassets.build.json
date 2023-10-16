@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "zs9xYi9YyFF/JGK1htDdV7YXDG3G+DF2sl85kIpoLCY=",
+  "Source": "TaskifyWebApi",
+  "BasePath": "_content/TaskifyWebApi",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
