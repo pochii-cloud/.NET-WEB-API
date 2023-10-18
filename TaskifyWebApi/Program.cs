@@ -1,3 +1,6 @@
+using Microsoft.EntityFrameworkCore;
+using System;
+using TaskifyWebApi.Data;
 using TaskifyWebApi.Services.TodoService;
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,7 +11,11 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<ITodo , TodoService>();
-
+builder.Services.AddScoped<TodoService>();
+builder.Services.AddDbContext<DataContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("defaultConnection"));
+});
 
 var app = builder.Build();
 

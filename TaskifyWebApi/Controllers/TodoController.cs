@@ -11,8 +11,8 @@ namespace TaskifyWebApi.Controllers
     public class TodoController : ControllerBase
     {
 
-        private ITodo _todoService;
-        public TodoController(ITodo todoService)
+        private TodoService _todoService;
+        public TodoController(TodoService todoService)
         {
             _todoService = todoService;
         }
@@ -20,12 +20,12 @@ namespace TaskifyWebApi.Controllers
         [HttpGet]
         public async Task<ActionResult<List<Todo>>> GetAllTodos()
         {
-           var result = _todoService.GetAllTodos();
-           return Ok(result);
+            var result = _todoService.GetAllTodos();
+            return Ok(result);
         }
 
 
-        [HttpGet("id")]
+        [HttpGet("{id}")]
         public async Task<ActionResult<List<Todo>>> GetSingleTodo(int id)
         {
             var result = _todoService.GetSingleTodo(id);
@@ -34,14 +34,14 @@ namespace TaskifyWebApi.Controllers
 
         [HttpPost]
 
-        public async Task<ActionResult> AddTodo(string title,string description,bool iscomplete)
+        public async Task<ActionResult> AddTodo(string title, string description, bool iscomplete)
         {
-           var result = _todoService.AddTodo(title, description, iscomplete);
-           return Ok(result);
+            var result = _todoService.AddTodo(title, description, iscomplete);
+            return Ok(result);
         }
 
 
-        [HttpDelete("id")]
+        [HttpDelete("{id}")]
 
         public async Task <ActionResult> DeleteTodo(int id)
         {
@@ -50,7 +50,7 @@ namespace TaskifyWebApi.Controllers
         }
 
 
-        [HttpPut("id")]
+        [HttpPut("{id}")]
 
         public async Task<ActionResult> UpdateTask(int id, Todo todo)
         {
