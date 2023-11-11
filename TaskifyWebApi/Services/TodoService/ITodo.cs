@@ -4,7 +4,7 @@ namespace TaskifyWebApi.Services.TodoService
 {
     public interface ITodo
     {
-        List<Todo> GetAllTodos();
+        Task<List<Todo>> GetAllTodos();
 
         Todo GetSingleTodo(int id);
 

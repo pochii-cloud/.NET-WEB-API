@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Immutable;
 using TaskifyWebApi.Models;
 using TaskifyWebApi.Services.TodoService;
@@ -20,7 +21,7 @@ namespace TaskifyWebApi.Controllers
         [HttpGet]
         public async Task<ActionResult<List<Todo>>> GetAllTodos()
         {
-            var result = _todoService.GetAllTodos();
+            var result = await _todoService.GetAllTodos();
             return Ok(result);
         }
 

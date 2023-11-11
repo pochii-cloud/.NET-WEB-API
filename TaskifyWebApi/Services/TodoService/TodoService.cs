@@ -1,4 +1,7 @@
-﻿using TaskifyWebApi.Models;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.EntityFrameworkCore;
+using TaskifyWebApi.Data;
+using TaskifyWebApi.Models;
 
 namespace TaskifyWebApi.Services.TodoService
 {
@@ -23,6 +26,11 @@ namespace TaskifyWebApi.Services.TodoService
 
 
             };
+        private DataContext _dbContext;
+        public TodoService(DataContext dbcontext)
+        {
+           _dbContext = dbcontext;
+        }
 
         public List<Todo> AddTodo(string title, string description, bool iscomplete)
         {
@@ -45,9 +53,9 @@ namespace TaskifyWebApi.Services.TodoService
             return TodoList;
         }
 
-        public List<Todo> GetAllTodos()
+        public async Task<List<Todo>> GetAllTodos()
         {
-            return TodoList;
+            return await _dbContext.Todos.ToListAsync();
         }
 
         public Todo GetSingleTodo(int id)
