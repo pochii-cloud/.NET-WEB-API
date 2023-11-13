@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Immutable;
+using System.Net;
 using TaskifyWebApi.Models;
 using TaskifyWebApi.Services.TodoService;
 
@@ -29,7 +30,11 @@ namespace TaskifyWebApi.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<List<Todo>>> GetSingleTodo(int id)
         {
-            var result = _todoService.GetSingleTodo(id);
+            var result =  await _todoService.GetSingleTodo(id);
+            if (result == null)
+            {
+                return NoContent();
+            }
             return Ok(result);
         }
 
@@ -37,7 +42,7 @@ namespace TaskifyWebApi.Controllers
 
         public async Task<ActionResult> AddTodo(string title, string description, bool iscomplete)
         {
-            var result = _todoService.AddTodo(title, description, iscomplete);
+            var result = await _todoService.AddTodo(title, description, iscomplete);
             return Ok(result);
         }
 

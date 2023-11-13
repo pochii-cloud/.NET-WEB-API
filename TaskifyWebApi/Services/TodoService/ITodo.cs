@@ -6,9 +6,9 @@ namespace TaskifyWebApi.Services.TodoService
     {
         Task<List<Todo>> GetAllTodos();
 
-        Todo GetSingleTodo(int id);
+        Task<Todo> GetSingleTodo(int id);
 
-        List<Todo> AddTodo(string title, string description, bool iscomplete);
+        Task<List<Todo>> AddTodo(string title, string description, bool iscomplete);
 
         List<Todo> DeleteTodo(int id);
 

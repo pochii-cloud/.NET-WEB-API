@@ -19,7 +19,7 @@ namespace TaskifyWebApi.Services.TodoService
                  new Todo
                 {
                     id = 2,
-                    title="todo two",
+                    title="todo test",
                     description ="description two",
                     iscomplete=false
                 },
@@ -32,19 +32,21 @@ namespace TaskifyWebApi.Services.TodoService
            _dbContext = dbcontext;
         }
 
-        public List<Todo> AddTodo(string title, string description, bool iscomplete)
+        public async Task<List<Todo>> AddTodo(string title, string description, bool iscomplete)
         {
             var new_todo = new Todo
             {
-                id = TodoList.Count + 1,
                 title = title,
                 description = description,
                 iscomplete = false
             };
             
-            TodoList.Add(new_todo);
+            await _dbContext.Todos.AddAsync(new_todo);
+            
+            await _dbContext.SaveChangesAsync();
 
-            return TodoList;
+            var todos=await _dbContext.Todos.ToListAsync();
+            return todos;
         }
 
         public List<Todo> DeleteTodo(int id)
@@ -58,9 +60,9 @@ namespace TaskifyWebApi.Services.TodoService
             return await _dbContext.Todos.ToListAsync();
         }
 
-        public Todo GetSingleTodo(int id)
+        public async Task<Todo> GetSingleTodo(int id)
         {
-            var single_todo = TodoList.Find(x => x.id == id);
+            var single_todo = await _dbContext.Todos.FirstOrDefaultAsync(todo => todo.id == id);
             return single_todo;
         }
 
