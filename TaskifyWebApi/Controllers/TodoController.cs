@@ -51,7 +51,7 @@ namespace TaskifyWebApi.Controllers
 
         public async Task <ActionResult> DeleteTodo(int id)
         {
-            var result = _todoService.DeleteTodo(id);
+            var result = await _todoService.DeleteTodo(id);
             return Ok(result);
         }
 

@@ -49,10 +49,19 @@ namespace TaskifyWebApi.Services.TodoService
             return todos;
         }
 
-        public List<Todo> DeleteTodo(int id)
+        public async Task<List<Todo>> DeleteTodo(int id)
         {
-            TodoList.RemoveAll(x => x.id == id);
-            return TodoList;
+            var todoRemove = await _dbContext.Todos.FirstOrDefaultAsync(x => x.id == id);
+
+            if(todoRemove != null)
+            {
+                _dbContext.Todos.Remove(todoRemove);
+                await _dbContext.SaveChangesAsync();
+            }
+
+            var todoList = await _dbContext.Todos.ToListAsync();
+            return todoList;
+
         }
 
         public async Task<List<Todo>> GetAllTodos()
