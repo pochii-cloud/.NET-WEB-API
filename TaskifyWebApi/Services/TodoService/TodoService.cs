@@ -7,25 +7,6 @@ namespace TaskifyWebApi.Services.TodoService
 {
     public class TodoService : ITodo
     {
-        static List<Todo> TodoList = new List<Todo>
-            {
-                new Todo
-                {
-                    id = 1,
-                    title="todo one",
-                    description ="description one",
-                    iscomplete=false
-                },
-                 new Todo
-                {
-                    id = 2,
-                    title="todo test",
-                    description ="description two",
-                    iscomplete=false
-                },
-
-
-            };
         private DataContext _dbContext;
         public TodoService(DataContext dbcontext)
         {
@@ -75,13 +56,19 @@ namespace TaskifyWebApi.Services.TodoService
             return single_todo;
         }
 
-        public List<Todo> UpdateTodo(int id,Todo todo)
+        public async Task<List<Todo>> UpdateTodo(int id,Todo todo)
         {
-            var todo_to_update = TodoList.Find(x => x.id == id);
-            todo_to_update.title = todo.title;
-            todo_to_update.description = todo.description;
-            todo_to_update.iscomplete = todo.iscomplete;
-            return TodoList;
+            var todo_to_update = await  _dbContext.Todos.FirstOrDefaultAsync(t=>t.id == id);
+            if(todo_to_update != null)
+            {
+                todo_to_update.title = todo.title;
+                todo_to_update.description = todo.description;
+                todo_to_update.iscomplete = todo.iscomplete;
+
+                await _dbContext.SaveChangesAsync();
+            }
+          
+            return await _dbContext.Todos.ToListAsync();
         }
     }
 }

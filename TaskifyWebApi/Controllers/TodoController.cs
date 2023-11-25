@@ -60,7 +60,7 @@ namespace TaskifyWebApi.Controllers
 
         public async Task<ActionResult> UpdateTask(int id, Todo todo)
         {
-            var result = _todoService.UpdateTodo(id,todo);
+            var result = await _todoService.UpdateTodo(id,todo);
             return Ok(result);
 
         }

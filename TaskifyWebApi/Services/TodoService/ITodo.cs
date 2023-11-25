@@ -12,6 +12,6 @@ namespace TaskifyWebApi.Services.TodoService
 
         Task<List<Todo>> DeleteTodo(int id);
 
-        List<Todo> UpdateTodo(int id,Todo todo);
+        Task<List<Todo>> UpdateTodo(int id,Todo todo);
     }
 }
